@@ -68,6 +68,17 @@ async def megadl(bot, message):
         await download_start.delete()
         shutil.rmtree(basedir + "/" + userpath)
         return
+    
+    """ upload to transfer.sh """
+    try:
+        await download_msg.edit(f"**Uploading to transfer.sh ...**")
+        download_link9, final_date9, size9 = await send_to_transfersh_async(magapylol, msg5)
+        await download_msg.edit(f"Done! **Link:** \n {download_link9} \n **Size:** {size9}")
+    except Exception as e:
+        print(e)
+        await download_msg.edit(f"Uploading to transfer.sh Failed \n\n **Error:** {e}")
+    """ end of upload to transfer.sh """
+    
     lmaocheckdis = os.stat(alreadylol).st_size
     readablefilesize = size(lmaocheckdis) # Convert Bytes into readable size
     if lmaocheckdis > Config.TG_MAX_SIZE:
